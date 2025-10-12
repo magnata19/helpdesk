@@ -5,15 +5,15 @@ public enum Prioridade {
   MEDIA(1, "MEDIA"),
   ALTA(2, "ALTA");
 
-  private Integer codigo;
+  private Perfil codigo;
   private String descricao;
 
-  Prioridade(Integer codigo, String descricao) {
+  Prioridade(Perfil codigo, String descricao) {
     this.codigo = codigo;
     this.descricao = descricao;
   }
 
-  public Integer getCodigo() {
+  public Perfil getCodigo() {
     return codigo;
   }
 
@@ -21,7 +21,7 @@ public enum Prioridade {
     return descricao;
   }
 
-  public static Prioridade toEnum(Integer codigo) {
+  public static Prioridade toEnum(Perfil codigo) {
     if(codigo == null) {
       return null;
     }

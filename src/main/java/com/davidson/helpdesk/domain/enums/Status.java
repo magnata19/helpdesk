@@ -5,15 +5,15 @@ public enum Status {
   ANDAMENTO(1, "ANDAMENTO"),
   ENCERRADO(2,"ENCERRADO");
 
-  private Integer codigo;
+  private Perfil codigo;
   private String descricao;
 
-  Status(Integer codigo, String descricao) {
+  Status(Perfil codigo, String descricao) {
     this.codigo = codigo;
     this.descricao = descricao;
   }
 
-  public Integer getCodigo() {
+  public Perfil getCodigo() {
     return codigo;
   }
 
@@ -21,7 +21,7 @@ public enum Status {
     return descricao;
   }
 
-  public static Status toEnum(Integer codigo) {
+  public static Status toEnum(Perfil codigo) {
     if(codigo == null){
       return null;
     }

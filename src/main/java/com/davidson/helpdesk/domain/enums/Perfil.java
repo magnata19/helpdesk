@@ -1,19 +1,19 @@
 package com.davidson.helpdesk.domain.enums;
 
-public enum Perfis {
+public enum Perfil {
   ADMIN(0,"ROLE_ADMIN"),
   CLIENTE(1,"ROLE_CLIENTE"),
   TECNICO(2,"ROLE_TECNICO");
 
-  private Integer codigo;
+  private java.lang.Integer codigo;
   private String descricao;
 
-  Perfis(Integer codigo, String descricao) {
+  Perfil(java.lang.Integer codigo, String descricao) {
     this.codigo = codigo;
     this.descricao = descricao;
   }
 
-  public Integer getCodigo() {
+  public java.lang.Integer getCodigo() {
     return codigo;
   }
 
@@ -21,12 +21,12 @@ public enum Perfis {
     return descricao;
   }
 
-  public static Perfis toEnum(Integer codigo) {
+  public static Perfil toEnum(java.lang.Integer codigo) {
     if(codigo == null) {
       return null;
     }
 
-    for(Perfis x: Perfis.values()){
+    for(Perfil x: Perfil.values()){
       if (codigo.equals(x.getCodigo())) {
         return x;
       }
