@@ -1,19 +1,19 @@
 package com.davidson.helpdesk.domain.enums;
 
 public enum Status {
-  ABERT(0, "ABERTO"),
+  ABERTO(  0, "ABERTO"),
   ANDAMENTO(1, "ANDAMENTO"),
   ENCERRADO(2,"ENCERRADO");
 
-  private Perfil codigo;
+  private Integer codigo;
   private String descricao;
 
-  Status(Perfil codigo, String descricao) {
+  Status(Integer codigo, String descricao) {
     this.codigo = codigo;
     this.descricao = descricao;
   }
 
-  public Perfil getCodigo() {
+  public Integer getCodigo() {
     return codigo;
   }
 
@@ -21,7 +21,7 @@ public enum Status {
     return descricao;
   }
 
-  public static Status toEnum(Perfil codigo) {
+  public static Status toEnum(Integer codigo) {
     if(codigo == null){
       return null;
     }

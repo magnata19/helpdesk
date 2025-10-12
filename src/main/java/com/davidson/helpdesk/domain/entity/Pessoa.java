@@ -1,21 +1,36 @@
 package com.davidson.helpdesk.domain.entity;
 
 import com.davidson.helpdesk.domain.enums.Perfil;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
+import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public abstract class Pessoa {
+@Entity
+public abstract class Pessoa implements Serializable {
 
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
   protected Long id;
   protected String nome;
+
+  @Column(unique = true)
   protected String cpf;
+
+  @Column(unique = true)
   protected String email;
   protected String senha;
+
+  @ElementCollection(fetch = FetchType.EAGER) // carrega os perfis junto com a pessoa
+  @CollectionTable(name = "PERFIS") // nome da tabela que vai armazenar os perfis
   protected Set<Integer> perfis = new HashSet<>();
+
+  @JsonFormat(pattern = "dd/MM/yyyy")
   protected LocalDate dataCriacao = LocalDate.now();
 
   public Pessoa() {
