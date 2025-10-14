@@ -3,6 +3,7 @@ package com.davidson.helpdesk.services;
 import com.davidson.helpdesk.domain.entity.Chamado;
 import com.davidson.helpdesk.domain.entity.Cliente;
 import com.davidson.helpdesk.domain.entity.Tecnico;
+import com.davidson.helpdesk.domain.enums.Perfil;
 import com.davidson.helpdesk.domain.enums.Prioridade;
 import com.davidson.helpdesk.domain.enums.Status;
 import com.davidson.helpdesk.repositories.ChamadoRepository;
@@ -29,6 +30,7 @@ public class DBService {
     Cliente cli1 = new Cliente(null, "Davidson", "123.456.789-00", "deh@mail.com","123456");
 
     Tecnico tec1 = new Tecnico(null, "Pacifico", "987.654.321-00", "walter@mail.com","654321");
+    tec1.addPerfil(Perfil.TECNICO);
 
     Chamado ch1 = new Chamado(null, Prioridade.MEDIA, Status.ABERTO, "Concertar impressora", "A impressora não está funcionando", tec1, cli1);
     clienteRepository.saveAll(Arrays.asList(cli1));
