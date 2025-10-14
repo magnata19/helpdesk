@@ -1,6 +1,7 @@
 package com.davidson.helpdesk.domain.entity;
 
 import com.davidson.helpdesk.domain.enums.Perfil;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -11,6 +12,7 @@ import java.util.List;
 public class Tecnico extends Pessoa {
 
   @OneToMany(mappedBy = "tecnico")
+  @JsonIgnore
   private List<Chamado> chamados = new ArrayList<>(); // iniciar a lista vazia e evita nullpointerexception
 
   public Tecnico() {
