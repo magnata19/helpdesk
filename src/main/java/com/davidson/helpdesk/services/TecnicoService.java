@@ -1,7 +1,9 @@
 package com.davidson.helpdesk.services;
 
+import com.davidson.helpdesk.domain.dtos.TecnicoDto;
 import com.davidson.helpdesk.domain.entity.Tecnico;
 import com.davidson.helpdesk.repositories.TecnicoRepository;
+import com.davidson.helpdesk.services.exception.ObjnotfoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,10 +20,16 @@ public class TecnicoService {
 
   public Tecnico findById(Long id){
     Optional<Tecnico> obj = tecnicoRepository.findById(id);
-    return obj.orElse(null);
+    return obj.orElseThrow(() ->new ObjnotfoundException("Objeto não encontrado! Id: " + id));
   }
 
   public List<Tecnico> getAll(){
     return tecnicoRepository.findAll();
+  }
+
+  public Tecnico create(TecnicoDto dto) {
+    dto.setId(null); // garantir que é uma criação e não uma atualização
+    Tecnico newTec = new Tecnico(dto);
+    return tecnicoRepository.save(newTec);
   }
 }

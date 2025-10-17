@@ -4,11 +4,10 @@ import com.davidson.helpdesk.domain.dtos.TecnicoDto;
 import com.davidson.helpdesk.domain.entity.Tecnico;
 import com.davidson.helpdesk.services.TecnicoService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -28,9 +27,18 @@ public class TecnicoResource {
   }
 
   @GetMapping
-  public ResponseEntity<List<Tecnico>> getAll() {
+  public ResponseEntity<List<TecnicoDto>> getAll() {
     List<Tecnico> list = tecnicoService.getAll();
-    return ResponseEntity.ok().body(list);
+    List<TecnicoDto> listDto = list.stream().map(tec -> new TecnicoDto(tec)).toList();
+    return ResponseEntity.ok().body(listDto);
+  }
+
+  @PostMapping
+  public ResponseEntity<TecnicoDto> create(@RequestBody TecnicoDto dto) {
+    Tecnico tecnico = tecnicoService.create(dto);
+    URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+            .path("/{id}").buildAndExpand(tecnico.getId()).toUri();
+    return ResponseEntity.created(uri).build();
   }
 
 }
