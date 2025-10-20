@@ -10,6 +10,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/tecnicos")
 public class TecnicoResource {
@@ -34,7 +36,7 @@ public class TecnicoResource {
   }
 
   @PostMapping
-  public ResponseEntity<TecnicoDto> create(@RequestBody TecnicoDto dto) {
+  public ResponseEntity<TecnicoDto> create(@Valid @RequestBody TecnicoDto dto) {
     Tecnico tecnico = tecnicoService.create(dto);
     URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
             .path("/{id}").buildAndExpand(tecnico.getId()).toUri();

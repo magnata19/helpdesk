@@ -4,7 +4,7 @@ import com.davidson.helpdesk.domain.entity.Tecnico;
 import com.davidson.helpdesk.domain.enums.Perfil;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -13,9 +13,13 @@ import java.util.stream.Collectors;
 
 public class TecnicoDto implements Serializable {
   protected Long id;
+  @NotNull(message = "O campo NOME é obrigatório.")
   protected String nome;
+  @NotNull(message = "O campo CPF é obrigatório.")
   protected String cpf;
+  @NotNull(message = "O campo EMAIL é obrigatório.")
   protected String email;
+  @NotNull(message = "O campo SENHA é obrigatório.")
   protected String senha;
   protected Set<Integer> perfis = new HashSet<>();
 
