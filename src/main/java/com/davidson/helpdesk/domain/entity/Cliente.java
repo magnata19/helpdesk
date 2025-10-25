@@ -1,5 +1,6 @@
 package com.davidson.helpdesk.domain.entity;
 
+import com.davidson.helpdesk.domain.dtos.ClienteDto;
 import com.davidson.helpdesk.domain.enums.Perfil;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -25,6 +26,16 @@ public class Cliente extends Pessoa {
   public Cliente(Long id, String nome, String cpf, String email, String senha) {
     super(id, nome, cpf, email, senha);
     addPerfil(Perfil.CLIENTE);
+  }
+
+  public Cliente(ClienteDto dto) {
+    this.id = dto.getId();
+    this.nome = dto.getNome();
+    this.cpf = dto.getCpf();
+    this.email = dto.getEmail();
+    this.senha = dto.getSenha();
+    this.perfis = dto.getPerfis().stream().map(x -> x.getCodigo()).collect(java.util.stream.Collectors.toSet());
+    this.dataCriacao = dto.getDataCriacao();
   }
 
   public List<Chamado> getChamados() {
