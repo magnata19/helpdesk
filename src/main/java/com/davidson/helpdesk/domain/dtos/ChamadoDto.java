@@ -3,6 +3,7 @@ package com.davidson.helpdesk.domain.dtos;
 import com.davidson.helpdesk.domain.entity.Chamado;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -15,12 +16,18 @@ public class ChamadoDto implements Serializable {
   @JsonFormat(pattern = "dd/MM/yyyy")
   private LocalDate dataFechamento;
 
+  @NotNull(message = "O campo PRIORIDADE é obrigatório.")
   private Integer prioridadeCod;
+  @NotNull(message = "O campo STATUS é obrigatório.")
   private Integer statusCod;
+  @NotNull(message = "O campo TÍTULO é obrigatório.")
   private String titulo;
+  @NotNull(message = "O campo OBSERVAÇÕES é obrigatório.")
   private String observacoes;
-  private Integer tecnicoId;
-  private Integer clienteId;
+  @NotNull(message = "O campo TÉCNICO é obrigatório.")
+  private Long tecnicoId;
+  @NotNull(message = "O campo CLIENTE é obrigatório.")
+  private Long clienteId;
   private String nomeTecnico;
   private String nomeCliente;
 
@@ -37,8 +44,8 @@ public class ChamadoDto implements Serializable {
     this.statusCod = chamado.getStatus().getCodigo();
     this.titulo = chamado.getTitulo();
     this.observacoes = chamado.getObservacoes();
-    this.tecnicoId = Math.toIntExact(chamado.getTecnico().getId());
-    this.clienteId = Math.toIntExact(chamado.getCliente().getId());
+    this.tecnicoId = chamado.getTecnico().getId();
+    this.clienteId = chamado.getCliente().getId();
     this.nomeTecnico = chamado.getTecnico().getNome();
     this.nomeCliente = chamado.getCliente().getNome();
   }
@@ -99,19 +106,19 @@ public class ChamadoDto implements Serializable {
     this.observacoes = observacoes;
   }
 
-  public Integer getTecnicoId() {
+  public Long getTecnicoId() {
     return tecnicoId;
   }
 
-  public void setTecnicoId(Integer tecnicoId) {
+  public void setTecnicoId(Long tecnicoId) {
     this.tecnicoId = tecnicoId;
   }
 
-  public Integer getClienteId() {
+  public Long getClienteId() {
     return clienteId;
   }
 
-  public void setClienteId(Integer clienteId) {
+  public void setClienteId(Long clienteId) {
     this.clienteId = clienteId;
   }
 
