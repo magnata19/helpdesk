@@ -9,6 +9,7 @@ import com.davidson.helpdesk.services.exception.DataIntegrityViolationException;
 import com.davidson.helpdesk.services.exception.ObjnotfoundException;
 import org.springframework.stereotype.Service;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -38,6 +39,24 @@ public class TecnicoService {
     validaPorCpfEEmail(dto);
     Tecnico newTec = new Tecnico(dto);
     return tecnicoRepository.save(newTec);
+  }
+
+
+  public Tecnico update(Long id, TecnicoDto dto) {
+    dto.setId(id);
+    Tecnico oldObj = findById(id);
+    validaPorCpfEEmail(dto);
+    oldObj = new Tecnico(dto);
+    return  tecnicoRepository.save(oldObj);
+  }
+
+  public void delete(Long id) {
+    Tecnico obj = findById(id);
+    if (obj.getChamados().size() > 0) {
+      throw new DataIntegrityViolationException("Técnico possui ordens de serviço e não pode ser deletado!");
+    } else {
+      tecnicoRepository.deleteById(id);
+    }
   }
 
   private void validaPorCpfEEmail(TecnicoDto dto) {
