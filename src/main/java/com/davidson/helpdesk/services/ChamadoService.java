@@ -11,6 +11,8 @@ import com.davidson.helpdesk.services.exception.ObjnotfoundException;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
+
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,6 +42,13 @@ public class ChamadoService {
     return chamadoRepository.save(newChamado(chamadoDto));
   }
 
+  public Chamado update(Long id, ChamadoDto chamadoDto) {
+    chamadoDto.setId(id);
+    Chamado oldChamado = findById(id);
+    oldChamado = newChamado(chamadoDto);
+    return chamadoRepository.save(oldChamado);
+  }
+
   private Chamado newChamado(ChamadoDto chamadoDto) {
     Tecnico tecnico = tecnicoService.findById(chamadoDto.getTecnicoId());
     Cliente cliente = clienteService.findById(chamadoDto.getClienteId());
@@ -47,6 +56,9 @@ public class ChamadoService {
     Chamado chamado = new Chamado();
     if (chamadoDto.getId() != null) {
       chamado.setId(chamadoDto.getId()); // se for null é criação, se não é atualização
+    }
+    if(chamadoDto.getStatusCod().equals(2)) {
+      chamado.setDataFechamento(LocalDate.now());
     }
 
     chamado.setTecnico(tecnico);
@@ -57,4 +69,5 @@ public class ChamadoService {
     chamado.setObservacoes(chamadoDto.getObservacoes());
     return chamado;
   }
+
 }

@@ -22,7 +22,7 @@ public class ChamadoResource {
   }
 
   @GetMapping(value = "/{id}")
-  public ResponseEntity<ChamadoDto> findById(@PathVariable(value = "id") Long id) {
+  public ResponseEntity<ChamadoDto> findById(@PathVariable Long id) {
     Chamado chamado = chamadoService.findById(id);
     return ResponseEntity.ok().body(new ChamadoDto(chamado));
   }
@@ -40,5 +40,11 @@ public class ChamadoResource {
     URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
             .buildAndExpand(chamado.getId()).toUri();
     return ResponseEntity.created(uri).build();
+  }
+
+  @PutMapping(value = "/{id}")
+  public ResponseEntity<ChamadoDto> update(@PathVariable Long id, @Valid @RequestBody ChamadoDto chamadoDto) {
+    Chamado newObj = chamadoService.update(id, chamadoDto);
+    return ResponseEntity.ok().body(new ChamadoDto(newObj));
   }
 }
