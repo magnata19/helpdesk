@@ -7,6 +7,7 @@ import com.davidson.helpdesk.repositories.ClienteRepository;
 import com.davidson.helpdesk.repositories.PessoaRepository;
 import com.davidson.helpdesk.services.exception.DataIntegrityViolationException;
 import com.davidson.helpdesk.services.exception.ObjnotfoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,12 +17,14 @@ import java.util.Optional;
 @Service
 public class ClienteService {
 
+  private final BCryptPasswordEncoder passwordEncoder;
   private final ClienteRepository clienteRepository;
   private final PessoaRepository pessoaRepository;
 
-  public ClienteService(ClienteRepository clienteRepository, PessoaRepository pessoaRepository) {
+  public ClienteService(ClienteRepository clienteRepository, PessoaRepository pessoaRepository, BCryptPasswordEncoder passwordEncoder) {
     this.clienteRepository = clienteRepository;
     this.pessoaRepository = pessoaRepository;
+    this.passwordEncoder = passwordEncoder;
   }
 
   public Cliente findById(Long id){
@@ -35,6 +38,7 @@ public class ClienteService {
 
   public Cliente create(ClienteDto dto) {
     dto.setId(null); // garantir que é uma criação e não uma atualização
+    dto.setSenha(passwordEncoder.encode(dto.getSenha()));
     validaPorCpfEEmail(dto);
     Cliente newTec = new Cliente(dto);
     return clienteRepository.save(newTec);
@@ -43,6 +47,7 @@ public class ClienteService {
 
   public Cliente update(Long id, ClienteDto dto) {
     dto.setId(id);
+    dto.setSenha(passwordEncoder.encode(dto.getSenha()));
     Cliente oldObj = findById(id);
     validaPorCpfEEmail(dto);
     oldObj = new Cliente(dto);

@@ -7,9 +7,10 @@ import com.davidson.helpdesk.repositories.PessoaRepository;
 import com.davidson.helpdesk.repositories.TecnicoRepository;
 import com.davidson.helpdesk.services.exception.DataIntegrityViolationException;
 import com.davidson.helpdesk.services.exception.ObjnotfoundException;
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -19,10 +20,12 @@ public class TecnicoService {
 
   private final TecnicoRepository tecnicoRepository;
   private final PessoaRepository pessoaRepository;
+  private final BCryptPasswordEncoder passwordEncoder;
 
-  public TecnicoService(TecnicoRepository tecnicoRepository, PessoaRepository pessoaRepository) {
+  public TecnicoService(TecnicoRepository tecnicoRepository, PessoaRepository pessoaRepository, BCryptPasswordEncoder passwordEncoder) {
     this.tecnicoRepository = tecnicoRepository;
     this.pessoaRepository = pessoaRepository;
+    this.passwordEncoder = passwordEncoder;
   }
 
   public Tecnico findById(Long id){
@@ -36,6 +39,7 @@ public class TecnicoService {
 
   public Tecnico create(TecnicoDto dto) {
     dto.setId(null); // garantir que é uma criação e não uma atualização
+    dto.setSenha(passwordEncoder.encode(dto.getSenha()));
     validaPorCpfEEmail(dto);
     Tecnico newTec = new Tecnico(dto);
     return tecnicoRepository.save(newTec);
@@ -44,6 +48,7 @@ public class TecnicoService {
 
   public Tecnico update(Long id, TecnicoDto dto) {
     dto.setId(id);
+    dto.setSenha(passwordEncoder.encode(dto.getSenha()));
     Tecnico oldObj = findById(id);
     validaPorCpfEEmail(dto);
     oldObj = new Tecnico(dto);
