@@ -2,7 +2,7 @@
   <mat-drawer #drawer class="sidenav" mode="side">
     <mat-nav-list class="nav-list">
       <img src="assets/img/logo.svg" alt="Logo Help Desk" />
-      <a mat-list-item routerLink="/">
+      <a mat-list-item routerLink="home">
         <i class="material-icons">home</i>
         Home
       </a>
@@ -29,6 +29,7 @@
     <button class="menu" (click)="drawer.toggle()" mat-icon-button>
       <i class="material-icons">menu</i>
     </button>
+    <router-outlet></router-outlet>
   </div>
 
 </mat-drawer-container>
