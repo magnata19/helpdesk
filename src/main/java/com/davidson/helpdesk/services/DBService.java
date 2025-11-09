@@ -35,6 +35,7 @@ public class DBService {
 
     Tecnico tec1 = new Tecnico(null, "Pacifico", "593.308.440-90", "walter@mail.com",passwordEncoder.encode("654321"));
     tec1.addPerfil(Perfil.TECNICO);
+    tec1.addPerfil(Perfil.ADMIN);
 
     Chamado ch1 = new Chamado(null, Prioridade.MEDIA, Status.ABERTO, "Concertar impressora", "A impressora não está funcionando", tec1, cli1);
     clienteRepository.saveAll(Arrays.asList(cli1));

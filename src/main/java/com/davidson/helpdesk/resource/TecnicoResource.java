@@ -4,6 +4,7 @@ import com.davidson.helpdesk.domain.dtos.TecnicoDto;
 import com.davidson.helpdesk.domain.entity.Tecnico;
 import com.davidson.helpdesk.services.TecnicoService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -35,6 +36,7 @@ public class TecnicoResource {
     return ResponseEntity.ok().body(listDto);
   }
 
+  @PreAuthorize("hasAnyRole('ADMIN')")
   @PostMapping
   public ResponseEntity<TecnicoDto> create(@Valid @RequestBody TecnicoDto dto) {
     Tecnico tecnico = tecnicoService.create(dto);
@@ -43,13 +45,14 @@ public class TecnicoResource {
     return ResponseEntity.created(uri).build();
   }
 
+  @PreAuthorize("hasAnyRole('ADMIN')")
   @PutMapping(value = "/{id}")
   public ResponseEntity<TecnicoDto> update(@PathVariable Long id, @Valid @RequestBody TecnicoDto dto) {
     Tecnico tecnico = tecnicoService.update(id, dto);
     return ResponseEntity.ok().body(new TecnicoDto(tecnico));
   }
 
-
+  @PreAuthorize("hasAnyRole('ADMIN')")
   @DeleteMapping(value = "/{id}")
   public ResponseEntity<TecnicoDto> delete (@PathVariable Long id) {
     tecnicoService.delete(id);
