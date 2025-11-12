@@ -1,0 +1,38 @@
+.container {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(4deg,rgba(108, 99, 255, 1) 11%, rgba(255, 255, 255, 1) 100%);
+
+}
+
+.form {
+  width: 30rem;
+  margin: auto;
+  padding: 4rem 1rem;
+  border-radius: .5rem;
+  background-color: #ffffff;
+}
+
+img {
+  width: 65%;
+  margin: 0 auto;
+}
+
+.img-container {
+  width: 100%;
+  text-align: center;
+  margin: 1rem 0;
+}
+
+.form-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.full-width {
+  width: 80%;
+}
