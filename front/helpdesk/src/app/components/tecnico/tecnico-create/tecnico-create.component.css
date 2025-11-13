@@ -42,3 +42,7 @@ img {
 button {
   margin-top: .5rem ;
 }
+
+mat-icon {
+  color: #6c63ff;
+}

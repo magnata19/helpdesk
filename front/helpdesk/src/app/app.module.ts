@@ -34,9 +34,9 @@ import { HeaderComponent } from './components/header/header.component';
 import { TecnicoListComponent } from './components/tecnico/tecnico-list/tecnico-list.component';
 import { LoginComponent } from './components/login/login.component';
 import { ToastrModule } from 'ngx-toastr';
-import { AuthInterceptor, AuthInterceptorProvider } from './interceptors/auth.interceptor';
+import { AuthInterceptorProvider } from './interceptors/auth.interceptor';
 import { TecnicoCreateComponent } from './components/tecnico/tecnico-create/tecnico-create.component';
-import { A11yModule } from "@angular/cdk/a11y";
+import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
   declarations: [
@@ -75,7 +75,7 @@ import { A11yModule } from "@angular/cdk/a11y";
         closeButton: true,
         progressBar: true
     }),
-    A11yModule
+    NgxMaskModule.forRoot()
 ],
   providers: [AuthInterceptorProvider],
   bootstrap: [AppComponent]
