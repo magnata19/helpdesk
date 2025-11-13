@@ -36,6 +36,7 @@ import { LoginComponent } from './components/login/login.component';
 import { ToastrModule } from 'ngx-toastr';
 import { AuthInterceptor, AuthInterceptorProvider } from './interceptors/auth.interceptor';
 import { TecnicoCreateComponent } from './components/tecnico/tecnico-create/tecnico-create.component';
+import { A11yModule } from "@angular/cdk/a11y";
 
 @NgModule({
   declarations: [
@@ -70,11 +71,12 @@ import { TecnicoCreateComponent } from './components/tecnico/tecnico-create/tecn
     MatCardModule,
     MatDividerModule,
     ToastrModule.forRoot({
-      timeOut: 3000,
-      closeButton: true,
-      progressBar: true
-    })
-  ],
+        timeOut: 3000,
+        closeButton: true,
+        progressBar: true
+    }),
+    A11yModule
+],
   providers: [AuthInterceptorProvider],
   bootstrap: [AppComponent]
 })
